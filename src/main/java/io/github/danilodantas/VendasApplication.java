@@ -1,5 +1,7 @@
 package io.github.danilodantas;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -15,9 +17,12 @@ public class VendasApplication {
 	@Bean
 	public CommandLineRunner init(@Autowired Clientes clientes) {
 		return args -> {
-			Cliente cliente = new Cliente();
-			cliente.setNome("Danilo");
-			clientes.salvar(cliente);
+			clientes.salvar(new Cliente("Danilo"));
+			clientes.salvar(new Cliente("Outro Cliente"));
+			
+			List<Cliente> todosClientes = clientes.obterTodos();
+			todosClientes.forEach(System.out::println);
+			
 		};
 	}
 	
