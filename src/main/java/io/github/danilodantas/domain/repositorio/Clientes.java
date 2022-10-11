@@ -20,19 +20,22 @@ public class Clientes {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
+	//SALVAR O CLIENTE NA BASE DE DADOS
 	public Cliente salvar(Cliente cliente) {
 		jdbcTemplate.update(INSERT, new Object[] {cliente.getNome()});
 		return cliente;
 	}
 	
+	//LISTAR OS CLIENTES
 	public List<Cliente> obterTodos() {
 		return jdbcTemplate.query(SELECT_ALL, new RowMapper<Cliente>() {
 			@Override
 			public Cliente mapRow(ResultSet resultSet, int i) throws SQLException {
-				Integer id = resultSet.getInt("id");
-				String nome = resultSet.getString("nome");
+				Integer id = resultSet.getInt("id"); //PEGANDO O RESULTADO DA PESQUISA FEITA NO BANCO PARA A COLUNA "ID"
+				String nome = resultSet.getString("nome"); //PEGANDO O RESULTADO DA PESQUISA FEITA NO BANCO PARA A COLUNA "NOME"
 				return new Cliente(id, nome);
 			}
 		});
 	}
 }
+
