@@ -1,5 +1,6 @@
 package io.github.danilodantas.domain.entity;
 
+//CLASSE DE ENTIDADE REFERENTE A TABELA CLIENTE DO BANCO DE DADOS
 public class Cliente {
 
 	private Integer id;
@@ -41,10 +42,7 @@ public class Cliente {
 	//METODO QUE VAI FORMATAR O TEXTO QUE SERA EXECUTADO NO CONSOLE COM O RESULTADO DO BANCO
 	@Override
 	public String toString() {
-		return "Cliente{" + 
-				"id=" + id + 
-				", nome='" + nome + '\'' +
-				'}';
+		return "Cliente{" + "id=" + id + ", nome='" + nome + '\'' +	'}';
 		
 	}
 }

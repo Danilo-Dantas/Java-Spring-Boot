@@ -18,6 +18,7 @@ public class VendasApplication {
 	public CommandLineRunner init(@Autowired Clientes clientes) {
 		return args -> {
 			//SALVANDO CLIENTES
+			System.out.println("SALVANDO...");
 			clientes.salvar(new Cliente("Danilo"));
 			clientes.salvar(new Cliente("Marcos"));
 			clientes.salvar(new Cliente("Felipe"));
@@ -26,28 +27,47 @@ public class VendasApplication {
 			clientes.salvar(new Cliente("Juan Danilo"));
 			clientes.salvar(new Cliente("Outro Cliente"));
 			
+			//PRINTANDO LISTA DE TODOS OS CLIENTES NO CONSOLE
+			System.out.println("LISTANDO CLIENTES SALVOS...");
+			List<Cliente> todosClientes = clientes.obterTodos();
+			todosClientes.forEach(System.out::println);
+			
+			todosClientes.forEach(cadaCliente -> {
+				cadaCliente.setNome(cadaCliente.getNome() + " - atualizado.");
+				clientes.atualizar(cadaCliente);
+			});
+			
 			//ATUALIZAR CLIENTES
-			clientes.atualizar(new Cliente(2,"Douglas"));
+			System.out.println("ATUALIZANDO...");
+			clientes.atualizar(new Cliente(1,"Douglas"));
 			
 			//DELETAR CLIENTE
-			clientes.deletar(new Cliente(1));
+			System.out.println("DELETANDO..." + clientes.buscarClienteId(4));
+			clientes.deletar(new Cliente(4));
+			
+			//BUSCANDO POR NOME ESPECIFICO
+			System.out.println("BUSCANDO POR NOME...");
+			String nome = "Wesley";
+			if(clientes.buscarPorNomeLike(nome).isEmpty()) {
+				System.out.println("Nome não encontrado.");
+			} else {
+				clientes.buscarPorNomeLike(nome).forEach(System.out::println);
+			}
+
+//			todosClientes = clientes.obterTodos();
+//			todosClientes.forEach(System.out::println);
 			
 			//BUSCAR POR NOME "STRING NOME"
-			List<Cliente> listaPorNome = clientes.buscarPorNome("Felipe");
-			listaPorNome.forEach(System.out::println);		
+			//List<Cliente> listaPorNome = clientes.buscarPorNome("Felipe");
+			//listaPorNome.forEach(System.out::println);		
 			
 			//BUSCANDO POR NOME E ID "OBJETO CLIENTE"
-			List<Cliente> listaPorNomeId = clientes.buscarPorNomeId(new Cliente(2,"Marcos"));
-			listaPorNomeId.forEach(System.out::println);
+			//List<Cliente> listaPorNomeId = clientes.buscarPorNomeId(new Cliente(2,"Marcos"));
+			//listaPorNomeId.forEach(System.out::println);
 			
 			//BUSCANDO POR NOME LIKE
 			//List<Cliente> listaPorNomeLike = clientes.buscarPorNomeLike("Danilo");
-			//listaPorNomeLike.forEach(System.out::println);
-			
-			//PRINTANDO LISTA DE CLIENTES NO CONSOLE
-			//List<Cliente> todosClientes = clientes.obterTodos();
-			//todosClientes.forEach(System.out::println);
-			
+			//listaPorNomeLike.forEach(System.out::println);		
 		};
 	}
 	

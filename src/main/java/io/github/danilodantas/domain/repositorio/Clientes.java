@@ -39,6 +39,14 @@ public class Clientes {
 				obterClienteMapper());
 	}
 	
+	//PESQUISA CLIENTE POR ID "INTEGER ID"
+	public List<Cliente> buscarClienteId(Integer id) {
+		return jdbcTemplate.query(
+				SELECT_ALL.concat("where id = ?"),
+				new Object[] {id},
+				obterClienteMapper());		
+	}
+	
 	//PESQUISA CLIENTE POR NOME "OBJETO CLIENTE"
 		public List<Cliente> buscarPorNomeId(Cliente cliente) {
 			return jdbcTemplate.query(
@@ -54,13 +62,6 @@ public class Clientes {
 					new Object[] {"%" + nome + "%"},
 					obterClienteMapper());
 	}
-	
-	
-	
-	
-	
-	
-	
 	
 	//SALVAR O CLIENTE NA BASE DE DADOS
 	public Cliente salvar(Cliente cliente) {
