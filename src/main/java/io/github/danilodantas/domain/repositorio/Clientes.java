@@ -2,6 +2,7 @@ package io.github.danilodantas.domain.repositorio;
 
 import io.github.danilodantas.domain.entity.Cliente;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -19,6 +20,7 @@ public interface Clientes extends JpaRepository<Cliente, Integer> {
 	List<Cliente> encontrarPorNome(@Param("nome") String nome);
 	
 	@Query(" dele from Cliente c where c.nome =:nome ")
+	@Modifying
 	void deleteByNome(String nome);
 	
 	boolean existsByNome(String nome);
