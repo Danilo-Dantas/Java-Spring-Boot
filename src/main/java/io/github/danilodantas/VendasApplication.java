@@ -1,5 +1,7 @@
 package io.github.danilodantas;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -22,8 +24,8 @@ public class VendasApplication {
 			//PRINTANDO LISTA DE TODOS OS CLIENTES NO CONSOLE
 			System.out.println("LISTANDO CLIENTES SALVOS...");
 			
-			boolean existe = clientes.existsByNome("Danilo");
-			System.out.println("Existe um cliente com o nome Danilo? " + existe);
+			List<Cliente> result = clientes.encontrarPorNome("Danilo");
+			result.forEach(System.out::println);
 					
 		};
 	}
