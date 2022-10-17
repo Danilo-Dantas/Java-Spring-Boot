@@ -1,5 +1,7 @@
 package io.github.danilodantas.domain.entity;
 
+import java.util.Set;
+
 import javax.persistence.*;
 
 @Entity //INDICA AO JPA QUE FAÇA O SCAN DESSA CLASSE(CLIENTE) E REGISTRE ELA COMO UMA TABELA DO BANCO DE DADOS
@@ -13,6 +15,17 @@ public class Cliente { //CLASSE DE ENTIDADE REFERENTE A TABELA CLIENTE DO BANCO 
 	
 	@Column(name = "nome", length = 100)
 	private String nome;
+	
+	@OneToMany( mappedBy = "cliente" )
+	private Set<Pedido> pedidos;
+
+	public Set<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(Set<Pedido> pedidos) {
+		this.pedidos = pedidos;
+	}
 
 	//CONTRUTORES
 	public Cliente() {
