@@ -31,28 +31,28 @@ public class VendasApplication {
 			System.out.println("LISTANDO CLIENTES SALVOS...");
 			List<Cliente> todosClientes = clientes.obterTodos();
 			todosClientes.forEach(System.out::println);
-			
-			todosClientes.forEach(cadaCliente -> {
-				cadaCliente.setNome(cadaCliente.getNome() + " - atualizado.");
-				clientes.atualizar(cadaCliente);
-			});
-			
-			//ATUALIZAR CLIENTES
-			System.out.println("ATUALIZANDO...");
-			clientes.atualizar(new Cliente(1,"Douglas"));
-			
-			//DELETAR CLIENTE
-			System.out.println("DELETANDO..." + clientes.buscarClienteId(4));
-			clientes.deletar(new Cliente(4));
-			
-			//BUSCANDO POR NOME ESPECIFICO
-			System.out.println("BUSCANDO POR NOME...");
-			String nome = "Wesley";
-			if(clientes.buscarPorNomeLike(nome).isEmpty()) {
-				System.out.println("Nome não encontrado.");
-			} else {
-				clientes.buscarPorNomeLike(nome).forEach(System.out::println);
-			}
+//			
+//			todosClientes.forEach(cadaCliente -> {
+//				cadaCliente.setNome(cadaCliente.getNome() + " - atualizado.");
+//				clientes.atualizar(cadaCliente);
+//			});
+//			
+//			//ATUALIZAR CLIENTES
+//			System.out.println("ATUALIZANDO...");
+//			clientes.atualizar(new Cliente(1,"Douglas"));
+//			
+//			//DELETAR CLIENTE
+//			System.out.println("DELETANDO..." + clientes.buscarClienteId(4));
+//			clientes.deletar(new Cliente(4));
+//			
+//			//BUSCANDO POR NOME ESPECIFICO
+//			System.out.println("BUSCANDO POR NOME...");
+//			String nome = "Wesley";
+//			if(clientes.buscarPorNomeLike(nome).isEmpty()) {
+//				System.out.println("Nome não encontrado.");
+//			} else {
+//				clientes.buscarPorNomeLike(nome).forEach(System.out::println);
+//			}
 
 //			todosClientes = clientes.obterTodos();
 //			todosClientes.forEach(System.out::println);

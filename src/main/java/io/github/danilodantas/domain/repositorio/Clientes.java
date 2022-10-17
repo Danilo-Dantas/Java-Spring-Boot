@@ -4,17 +4,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import io.github.danilodantas.domain.entity.Cliente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Repository //REPOSITORIO MOSTRA QUE É UMA CLASSE QUE ACESSA BANCO DE DADOS
 public class Clientes {
 
-	private static String INSERT = "insert into cliente (nome) values (?) ";
 	private static String SELECT_POR_NOME = "select * from cliente where nome = ? ";
 	private static String SELECT_POR_NOME_ID = "select * from cliente where nome = ? and id = ? ";
 	private static String SELECT_ALL = "select * from cliente ";
@@ -24,6 +26,9 @@ public class Clientes {
 	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+	
+	@Autowired
+	private EntityManager entityManager;
 	
 	//DELETANDO CLIENTE
 	public Cliente deletar(Cliente cliente) {
@@ -64,8 +69,9 @@ public class Clientes {
 	}
 	
 	//SALVAR O CLIENTE NA BASE DE DADOS
+	@Transactional
 	public Cliente salvar(Cliente cliente) {
-		jdbcTemplate.update(INSERT, new Object[] {cliente.getNome()});
+		entityManager.persist(cliente);
 		return cliente;
 	}
 	
