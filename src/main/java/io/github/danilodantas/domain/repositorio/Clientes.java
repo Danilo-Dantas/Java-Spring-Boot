@@ -1,100 +1,64 @@
 package io.github.danilodantas.domain.repositorio;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 import io.github.danilodantas.domain.entity.Cliente;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-
-@Repository //REPOSITORIO MOSTRA QUE É UMA CLASSE QUE ACESSA BANCO DE DADOS
+@Repository // REPOSITORIO MOSTRA QUE É UMA CLASSE QUE ACESSA BANCO DE DADOS
 public class Clientes {
 
-	private static String SELECT_POR_NOME = "select * from cliente where nome = ? ";
-	private static String SELECT_POR_NOME_ID = "select * from cliente where nome = ? and id = ? ";
-	private static String SELECT_ALL = "select * from cliente ";
-	private static String UPDATE = "update cliente set nome = ? where id = ? ";
-	private static String DELETE = "delete from cliente where id = ? ";
-	
-	
-	@Autowired
-	private JdbcTemplate jdbcTemplate;
-	
 	@Autowired
 	private EntityManager entityManager;
-	
-	//DELETANDO CLIENTE
-	public Cliente deletar(Cliente cliente) {
-		jdbcTemplate.update(DELETE, new Object[] {cliente.getId()});
-		return cliente;
-	}
-	
-	//PESQUISA CLIENTE POR NOME "STRING NOME"
-	public List<Cliente> buscarPorNome(String nome) {
-		return jdbcTemplate.query(
-				SELECT_POR_NOME, 
-				new Object[] {nome},
-				obterClienteMapper());
-	}
-	
-	//PESQUISA CLIENTE POR ID "INTEGER ID"
-	public List<Cliente> buscarClienteId(Integer id) {
-		return jdbcTemplate.query(
-				SELECT_ALL.concat("where id = ?"),
-				new Object[] {id},
-				obterClienteMapper());		
-	}
-	
-	//PESQUISA CLIENTE POR NOME "OBJETO CLIENTE"
-		public List<Cliente> buscarPorNomeId(Cliente cliente) {
-			return jdbcTemplate.query(
-					SELECT_POR_NOME_ID, 
-					new Object[] {cliente.getNome(), cliente.getId()},
-					obterClienteMapper());
+
+	// DELETANDO CLIENTE
+	@Transactional
+	public void deletar(Cliente cliente) {
+		if(!entityManager.contains(cliente)) {
+			cliente = entityManager.merge(cliente);
 		}
-	
-	//PESQUISA CLIENTE POR NOME "LIKE", SEGUNDO JEITO
-		public List<Cliente> buscarPorNomeLike(String nome) {
-			return jdbcTemplate.query(
-					SELECT_ALL.concat(" where nome like ? "),
-					new Object[] {"%" + nome + "%"},
-					obterClienteMapper());
+		entityManager.remove(cliente);
 	}
-	
-	//SALVAR O CLIENTE NA BASE DE DADOS
+
+	// DELETANDO CLIENTE ID
+	@Transactional
+	public void deletar(Integer id) {
+		Cliente cliente = entityManager.find(Cliente.class, id);
+		deletar(cliente);
+	}
+
+	// PESQUISA CLIENTE POR NOME "LIKE", SEGUNDO JEITO
+	@Transactional(readOnly = true)
+	public List<Cliente> buscarPorNomeLike(String nome) {
+		String jpql = " select c from Cliente c where c.nome like :nome ";
+		TypedQuery<Cliente> query = entityManager.createQuery(jpql, Cliente.class);
+		query.setParameter("nome", "%" + nome + "%");
+		return query.getResultList();
+	}
+
+	// SALVAR O CLIENTE NA BASE DE DADOS
 	@Transactional
 	public Cliente salvar(Cliente cliente) {
 		entityManager.persist(cliente);
 		return cliente;
 	}
-	
-	//ATUALIZAR O CLIENTE
+
+	// ATUALIZAR O CLIENTE
+	@Transactional
 	public Cliente atualizar(Cliente cliente) {
-		jdbcTemplate.update(UPDATE, new Object[] {cliente.getNome(), cliente.getId()});
+		entityManager.merge(cliente);
 		return cliente;
 	}
 	
-	//LISTAR OS CLIENTES
+	// LISTAR OS CLIENTES
+	@Transactional
 	public List<Cliente> obterTodos() {
-		return jdbcTemplate.query(SELECT_ALL, obterClienteMapper());
+		return entityManager.createQuery("from Cliente", Cliente.class).getResultList();
 	}
-
-	private RowMapper<Cliente> obterClienteMapper() {
-		return new RowMapper<Cliente>() {
-			@Override
-			public Cliente mapRow(ResultSet resultSet, int i) throws SQLException {
-				Integer id = resultSet.getInt("id"); //PEGANDO O RESULTADO DA PESQUISA FEITA NO BANCO PARA A COLUNA "ID"
-				String nome = resultSet.getString("nome"); //PEGANDO O RESULTADO DA PESQUISA FEITA NO BANCO PARA A COLUNA "NOME"
-				return new Cliente(id, nome);
-			}
-		};
-	}
+	
 }
-
