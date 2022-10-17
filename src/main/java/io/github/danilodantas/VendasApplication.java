@@ -19,42 +19,42 @@ public class VendasApplication {
 		return args -> {
 			//SALVANDO CLIENTES
 			System.out.println("SALVANDO...");
-			clientes.salvar(new Cliente("Danilo"));
-			clientes.salvar(new Cliente("Marcos"));
-			clientes.salvar(new Cliente("Felipe"));
-			clientes.salvar(new Cliente("Robson"));
-			clientes.salvar(new Cliente("Wesley"));
-			clientes.salvar(new Cliente("Juan Danilo"));
-			clientes.salvar(new Cliente("Outro Cliente"));
+			clientes.save(new Cliente("Danilo"));
+			clientes.save(new Cliente("Marcos"));
+			clientes.save(new Cliente("Felipe"));
+			clientes.save(new Cliente("Robson"));
+			clientes.save(new Cliente("Wesley"));
+			clientes.save(new Cliente("Juan Danilo"));
+			clientes.save(new Cliente("Outro Cliente"));
 			
 			//PRINTANDO LISTA DE TODOS OS CLIENTES NO CONSOLE
 			System.out.println("LISTANDO CLIENTES SALVOS...");
-			List<Cliente> todosClientes = clientes.obterTodos();
+			List<Cliente> todosClientes = clientes.findAll();
 			todosClientes.forEach(System.out::println);
 			
-			todosClientes.forEach(cadaCliente -> {
-				cadaCliente.setNome(cadaCliente.getNome() + " - atualizado.");
-				clientes.atualizar(cadaCliente);
+			todosClientes.forEach(c -> {
+				c.setNome(c.getNome() + " - atualizado.");
+				clientes.save(c);
 			});
 			
 			//ATUALIZAR CLIENTES
 			System.out.println("ATUALIZANDO...");
-			clientes.atualizar(new Cliente(1,"Douglas"));
+			clientes.save(new Cliente(1,"Douglas"));
 			
 			//DELETAR CLIENTE
-			System.out.println("DELETANDO..." + clientes.buscarPorNomeLike("Robson"));
-			clientes.deletar(new Cliente(4));
+			System.out.println("DELETANDO..." + clientes.findByNomeLike("Robson"));
+			clientes.delete(new Cliente(4));
 			
 			//BUSCANDO POR NOME ESPECIFICO
 			System.out.println("BUSCANDO POR NOME...");
 			String nome = "Wesley";
-			if(clientes.buscarPorNomeLike(nome).isEmpty()) {
+			if(clientes.findByNomeLike(nome).isEmpty()) {
 				System.out.println("Nome não encontrado.");
 			} else {
-				clientes.buscarPorNomeLike(nome).forEach(System.out::println);
+				clientes.findByNomeLike(nome).forEach(System.out::println);
 			}
 
-			todosClientes = clientes.obterTodos();
+			todosClientes = clientes.findAll();
 			todosClientes.forEach(System.out::println);
 			
 		};
