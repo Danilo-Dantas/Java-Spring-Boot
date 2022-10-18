@@ -29,7 +29,7 @@ public class VendasApplication {
 			Pedido p = new Pedido();
 			p.setCliente(fulano);
 			p.setDataPedido(LocalDate.now());
-			p.setTotal(BigDecimal.valueOf(20));
+			p.setTotal(BigDecimal.valueOf(100));
 			
 			pedidos.save(p);
 			
@@ -37,6 +37,7 @@ public class VendasApplication {
 			System.out.println(cliente);
 			System.out.println(cliente.getPedidos());
 					
+			pedidos.findByCliente(cliente).forEach(System.out::println);
 		};
 	}
 	

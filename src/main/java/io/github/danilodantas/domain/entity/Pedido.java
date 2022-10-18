@@ -30,7 +30,7 @@ public class Pedido {
 	@Column(name = "data_pedido")
 	private LocalDate dataPedido;
 	
-	@Column(name = "total", length = 20, precision = 2)
+	@Column(name = "total", precision = 20 ,scale = 2) //PRECISION: QTD DE DIGITOS QUE TEM / SCALE: QTD DE DECIMAIS
 	private BigDecimal total;
 	
 	@OneToMany(mappedBy = "pedido")
@@ -73,8 +73,8 @@ public class Pedido {
 	
 	@Override
 	public String toString() {
-		return "Pedido{ " +
-				"  id=" + id + 
+		return "Pedido{" +
+				" id=" + id + 
 				", dataPedido=" + dataPedido + 
 				", total=" + total + 
 				" }";
