@@ -8,7 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import io.github.danilodantas.domain.entity.Cliente;
-import io.github.danilodantas.domain.repositorio.Clientes;
+import io.github.danilodantas.domain.repository.Clientes;
 
 @SpringBootApplication
 public class VendasApplication {

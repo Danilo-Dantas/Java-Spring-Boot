@@ -50,7 +50,6 @@ public class Pedido {
 		this.id = id;
 	}
 	
-	
 	public Cliente getCliente() {
 		return cliente;
 	}
@@ -58,14 +57,12 @@ public class Pedido {
 		this.cliente = cliente;
 	}
 	
-	
 	public LocalDate getDataPedido() {
 		return dataPedido;
 	}
 	public void setDataPedido(LocalDate dataPedido) {
 		this.dataPedido = dataPedido;
 	}
-	
 	
 	public BigDecimal getTotal() {
 		return total;
