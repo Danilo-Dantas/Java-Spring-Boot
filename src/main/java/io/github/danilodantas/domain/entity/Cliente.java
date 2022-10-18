@@ -16,7 +16,7 @@ public class Cliente { //CLASSE DE ENTIDADE REFERENTE A TABELA CLIENTE DO BANCO 
 	@Column(name = "nome", length = 100)
 	private String nome;
 	
-	@OneToMany( mappedBy = "cliente" )
+	@OneToMany( mappedBy = "cliente" , fetch = FetchType.EAGER)
 	private Set<Pedido> pedidos;
 
 	public Set<Pedido> getPedidos() {
@@ -63,7 +63,7 @@ public class Cliente { //CLASSE DE ENTIDADE REFERENTE A TABELA CLIENTE DO BANCO 
 	//METODO QUE VAI FORMATAR O TEXTO QUE SERA EXECUTADO NO CONSOLE COM O RESULTADO DO BANCO
 	@Override
 	public String toString() {
-		return "Cliente{" + "id=" + id + ", nome='" + nome + '\'' +	'}';
+		return "Cliente{ " + "id=" + id + ", nome='" + nome + '\'' +	'}';
 		
 	}
 }

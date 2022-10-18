@@ -71,5 +71,13 @@ public class Pedido {
 		this.total = total;
 	}
 	
+	@Override
+	public String toString() {
+		return "Pedido{ " +
+				"  id=" + id + 
+				", dataPedido=" + dataPedido + 
+				", total=" + total + 
+				" }";
+	}
 	
 }
