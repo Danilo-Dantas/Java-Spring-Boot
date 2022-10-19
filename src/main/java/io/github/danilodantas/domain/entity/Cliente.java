@@ -4,13 +4,14 @@ import java.util.Set;
 
 import javax.persistence.*;
 
-@Entity //INDICA AO JPA QUE FAÇA O SCAN DESSA CLASSE(CLIENTE) E REGISTRE ELA COMO UMA TABELA DO BANCO DE DADOS
-@Table(name = "cliente")
-public class Cliente { //CLASSE DE ENTIDADE REFERENTE A TABELA CLIENTE DO BANCO DE DADOS
+@Entity 
+@Table(name = "cliente") //NOME DA TABELA
+public class Cliente { 
 	
-	@Id //IDENTIFICA A PRIMARY KEY DA TABELA
+	//********************** COLUNAS DA TABELA **********************************
+	@Id 
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id")//CASO O NOME DA COLUNA ID SEJA DIFERENTE, PODEMOS USAR ESSA ANNOTATION, NESSE CASO É MEIO INUTIL, MAS COLOQUEI DE EXEMPLO
+	@Column(name = "id")
 	private Integer id;
 	
 	@Column(name = "nome", length = 100)
@@ -18,6 +19,8 @@ public class Cliente { //CLASSE DE ENTIDADE REFERENTE A TABELA CLIENTE DO BANCO 
 	
 	@OneToMany( mappedBy = "cliente" , fetch = FetchType.EAGER)
 	private Set<Pedido> pedidos;
+	//***************************************************************************
+	
 
 	public Set<Pedido> getPedidos() {
 		return pedidos;
@@ -64,6 +67,5 @@ public class Cliente { //CLASSE DE ENTIDADE REFERENTE A TABELA CLIENTE DO BANCO 
 	@Override
 	public String toString() {
 		return "Cliente{ " + "id=" + id + ", nome='" + nome + '\'' +	'}';
-		
 	}
 }

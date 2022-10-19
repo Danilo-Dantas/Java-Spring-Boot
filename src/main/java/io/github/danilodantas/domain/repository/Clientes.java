@@ -11,11 +11,8 @@ import java.util.List;
 public interface Clientes extends JpaRepository<Cliente, Integer> {
 	
 	
-	//ESSE METODO REPRESENTA: select c from Cliente c where c.nome like :nome
 	List<Cliente> findByNomeLike(String nome);
 	
-	//MESMO METODO SÓ QUE COM NOME NAO IDENTIFICADO COMO COMANDO
-	//@Query(value = " select c from Cliente c where c.nome like :nome ") ASSIM 
 	@Query(value = " select * from cliente c where c.nome like '%:nome%' ", nativeQuery = true) // ASSIM USAMOS SQL NATIVO
 	List<Cliente> encontrarPorNome(@Param("nome") String nome);
 	
