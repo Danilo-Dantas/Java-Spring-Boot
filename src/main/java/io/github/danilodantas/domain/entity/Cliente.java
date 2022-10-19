@@ -4,6 +4,8 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity 
 @Table(name = "cliente") //NOME DA TABELA
 public class Cliente { 
@@ -17,6 +19,7 @@ public class Cliente {
 	@Column(name = "nome", length = 100)
 	private String nome;
 	
+	@JsonIgnore
 	@OneToMany( mappedBy = "cliente" , fetch = FetchType.EAGER)
 	private Set<Pedido> pedidos;
 	//***************************************************************************
