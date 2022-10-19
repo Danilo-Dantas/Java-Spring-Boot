@@ -1,7 +1,11 @@
 package io.github.danilodantas.rest.controller;
 
+import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.ExampleMatcher.StringMatcher;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -10,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import io.github.danilodantas.domain.entity.Cliente;
@@ -71,4 +74,18 @@ public class ClienteController {
 		}).orElseGet( () -> ResponseEntity.notFound().build() );
 	}
 	
+	
+	//LISTA DE CLIENTES
+	@GetMapping("/api/clientes")
+	public ResponseEntity find( Cliente filtro ) {
+		ExampleMatcher matcher = ExampleMatcher.matching().withIgnoreCase().withStringMatcher( StringMatcher.CONTAINING );
+		Example example = Example.of(filtro, matcher);
+		List<Cliente> lista = clientes.findAll(example);
+		return ResponseEntity.ok(lista);
+	}
+	
 }
+
+
+
+
