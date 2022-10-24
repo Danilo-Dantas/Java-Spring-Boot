@@ -13,6 +13,7 @@ import javax.persistence.Table;
 @Table(name = "produto")
 public class Produto {
 	
+	//*********************** COLUNAS DA TABELA ********************
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
@@ -30,7 +31,7 @@ public class Produto {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
+	//**************************************************************
 	
 	public String getDescricao() {
 		return descricao;
