@@ -16,50 +16,53 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import io.github.danilodantas.domain.entity.Cliente;
 import io.github.danilodantas.domain.entity.Produto;
 import io.github.danilodantas.domain.repository.Produtos;
+
+import static org.springframework.http.HttpStatus.*;
 
 @RestController
 @RequestMapping("/api/produtos")
 public class ProdutoController {
 
-	private Produtos produtos;
+	private Produtos repository;
 	
-	public ProdutoController(Produtos produtos) {
-		this.produtos = produtos;
+	public ProdutoController(Produtos repository) {
+		this.repository = repository;
 	}
 	
 	//METODO GET
 	@GetMapping("{id}")
 	public Produto getProdutoById( @PathVariable Integer id) {
-		return produtos.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Produto não encontrado"));
+		return repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Produto não encontrado"));
 	}
 	
 	//METODO POST
 	@PostMapping
-	@ResponseStatus(HttpStatus.CREATED)
+	@ResponseStatus(CREATED)
 	public Produto save(@RequestBody Produto produto) {
-		return produtos.save(produto);
+		return repository.save(produto);
 	}
 	
 	//METODO DELETE
 	@DeleteMapping("{id}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@ResponseStatus(NO_CONTENT)
 	public void delete(@PathVariable Integer id) {
-		produtos.findById(id).map(cliente -> {
-			produtos.delete(cliente);
-			return cliente;
+		repository
+			.findById(id)
+			.map(cliente -> {
+				repository.delete(cliente);
+				return Void.TYPE;
 		}).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado."));
 	}
 	
 	//METODO ATUALIZAR
 	@PutMapping("{id}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@ResponseStatus(NO_CONTENT)
 	public void update(@PathVariable Integer id, @RequestBody Produto produto) {
-		produtos.findById(id).map(cliente -> {
+		repository.findById(id).map(cliente -> {
 			produto.setId(cliente.getId());
-			produtos.save(produto);
+			repository.save(produto);
 			return cliente;
 		}).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto não encontrado."));
 	}
@@ -73,6 +76,6 @@ public class ProdutoController {
 				.withStringMatcher( 
 						ExampleMatcher.StringMatcher.CONTAINING );
 		Example<Produto> example = Example.of(filtro, matcher);
-		return produtos.findAll(example);
+		return repository.findAll(example);
 	}
 }

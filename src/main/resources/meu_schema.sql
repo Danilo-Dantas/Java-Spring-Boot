@@ -22,3 +22,11 @@ CREATE TABLE ITEM_PEDIDO (
 	PRODUTO_ID INTEGER REFERENCES PRODUTO (ID),
 	QUANTIDADE INTEGER
 );
+
+insert into cliente values (2, '12345678912', 'Lucas Lucco')
+
+insert into produto values(1, 'caneta', 4.99)
+
+insert into item_pedido values(1, 5, 1, 1)
+
+insert into pedido values(1, now(), 10.00, 1)

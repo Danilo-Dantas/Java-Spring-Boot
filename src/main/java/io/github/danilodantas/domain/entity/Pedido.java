@@ -18,6 +18,7 @@ import javax.persistence.Table;
 @Table(name = "pedido")
 public class Pedido {
 
+	//******************** COLUNAS DA TABELA *************************
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
@@ -33,8 +34,11 @@ public class Pedido {
 	@Column(name = "total", precision = 20 ,scale = 2) //PRECISION: QTD DE DIGITOS QUE TEM / SCALE: QTD DE DECIMAIS
 	private BigDecimal total;
 	
+	
 	@OneToMany(mappedBy = "pedido")
 	private List<ItemPedido> itens;
+	//****************************************************************
+	
 	
 	public List<ItemPedido> getItemPedido() {
 		return itens;
