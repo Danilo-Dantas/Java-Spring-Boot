@@ -2,6 +2,7 @@ package io.github.danilodantas.domain.entity;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -46,5 +47,10 @@ public class Pedido {
 	private List<ItemPedido> itens;
 	//****************************************************************
 	
-	
+	public List<ItemPedido> getItens() {
+		if(this.itens == null) {
+			this.itens = new ArrayList<>();
+		}
+		return this.itens;
+	}
 }
