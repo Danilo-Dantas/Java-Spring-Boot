@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity 
-@Table(name = "cliente") //NOME DA TABELA
+@Table(name = "cliente")
 public class Cliente { 
 	
 	//********************** COLUNAS DA TABELA **********************************
