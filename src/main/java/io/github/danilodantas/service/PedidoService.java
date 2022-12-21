@@ -1,13 +1,13 @@
 package io.github.danilodantas.service;
 
-import java.util.Optional;
-
 import io.github.danilodantas.domain.entity.Pedido;
+import io.github.danilodantas.domain.enums.StatusPedido;
 import io.github.danilodantas.rest.dto.PedidoDTO;
 
-public interface PedidoService {
+import java.util.Optional;
 
-	Pedido salvar(PedidoDTO dto);
-	
-	Optional<Pedido> obterPedidoCompleto(Integer id);
+public interface PedidoService {
+    Pedido salvar( PedidoDTO dto );
+    Optional<Pedido> obterPedidoCompleto(Integer id);
+    void atualizaStatus(Integer id, StatusPedido statusPedido);
 }
