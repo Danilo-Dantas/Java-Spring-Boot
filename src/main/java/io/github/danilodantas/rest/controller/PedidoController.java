@@ -45,7 +45,7 @@ public class PedidoController {
                 .obterPedidoCompleto(id)
                 .map( p -> converter(p) )
                 .orElseThrow(() ->
-                        new ResponseStatusException(NOT_FOUND, "Pedido n√£o encontrado."));
+                        new ResponseStatusException(NOT_FOUND, "Pedido n„o encontrado."));
     }
 
     @PatchMapping("{id}")

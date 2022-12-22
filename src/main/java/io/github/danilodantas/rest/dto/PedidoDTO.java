@@ -9,6 +9,8 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
+import io.github.danilodantas.validation.NotEmptyList;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,6 +20,6 @@ public class PedidoDTO {
 	
 	@NotNull(message = "Campo Total do pedido é obrigatório.")
     private BigDecimal total;
-	
+	@NotEmptyList(message = "Pedido não pode ser realizado sem itens.")
     private List<ItemPedidoDTO> items;
 }
