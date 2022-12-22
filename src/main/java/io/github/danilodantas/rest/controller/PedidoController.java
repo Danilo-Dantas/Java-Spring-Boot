@@ -18,6 +18,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import static org.springframework.http.HttpStatus.*;
 
 @RestController
@@ -32,7 +34,7 @@ public class PedidoController {
 
     @PostMapping
     @ResponseStatus(CREATED)
-    public Integer save( @RequestBody PedidoDTO dto ){
+    public Integer save( @RequestBody @Valid PedidoDTO dto ){
         Pedido pedido = service.salvar(dto);
         return pedido.getId();
     }
