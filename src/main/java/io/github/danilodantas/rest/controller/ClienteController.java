@@ -16,6 +16,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/clientes")
 public class ClienteController {
@@ -32,12 +34,12 @@ public class ClienteController {
                 .findById(id)
                 .orElseThrow(() ->
                         new ResponseStatusException(HttpStatus.NOT_FOUND,
-                                "Cliente n√£o encontrado"));
+                                "Cliente n„o encontrado"));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Cliente save( @RequestBody Cliente cliente ){
+    public Cliente save( @RequestBody @Valid Cliente cliente ){
         return clientes.save(cliente);
     }
 
@@ -65,7 +67,7 @@ public class ClienteController {
                     clientes.save(cliente);
                     return clienteExistente;
                 }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                    "Cliente n√£o encontrado") );
+                    "Cliente n„o encontrado") );
     }
 
     @GetMapping

@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+
 import java.util.Set;
 
 @Data
@@ -21,6 +23,7 @@ public class Cliente {
     private Integer id;
 
     @Column(name = "nome", length = 100)
+    @NotEmpty(message = "Campo Nome é obrigatório")
     private String nome;
 
     @Column(name = "cpf", length = 11)
