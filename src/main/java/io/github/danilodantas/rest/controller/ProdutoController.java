@@ -43,7 +43,7 @@ public class ProdutoController {
                    return produto;
                 }).orElseThrow( () ->
                 new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        "Produto n√£o encontrado."));
+                        "Produto n„o encontrado."));
     }
 
     @DeleteMapping("{id}")
@@ -56,7 +56,7 @@ public class ProdutoController {
                     return Void.TYPE;
                 }).orElseThrow( () ->
                 new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        "Produto n√£o encontrado."));
+                        "Produto n„o encontrado."));
     }
 
     @GetMapping("{id}")
@@ -65,7 +65,7 @@ public class ProdutoController {
                 .findById(id)
                 .orElseThrow( () ->
                 new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        "Produto n√£o encontrado."));
+                        "Produto n„o encontrado."));
     }
 
     @GetMapping
