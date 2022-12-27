@@ -1,4 +1,4 @@
-package io.github.danilodantas;
+package io.github.danilodantas.security.jwt;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -11,6 +11,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Service;
 
+import io.github.danilodantas.VendasApplication;
 import io.github.danilodantas.domain.entity.Usuario;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
