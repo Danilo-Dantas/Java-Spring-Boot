@@ -5,7 +5,7 @@
 	<groupId>io.github.danilo.dantas</groupId>
 	<artifactId>vendas</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>${project.packaging}</packaging>
 	<name>vendas</name>
 
 
@@ -21,6 +21,29 @@
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.2.4.RELEASE</version>
 	</parent>
+	
+	
+	<!-- PARA BUILDAR UTILIZANDO UM PROFILE, BASTA USAR O COMANDO: mvn clean package -P desenvolvimento OU producao -->
+	<profiles>
+		<profile>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<id>desenvolvimento</id>
+			<properties>
+				<project.packaging>jar</project.packaging>
+				<tomcat.scope>compile</tomcat.scope>
+			</properties>
+		</profile>
+		
+		<profile>
+			<id>producao</id>
+			<properties>
+				<project.packaging>war</project.packaging>
+				<tomcat.scope>provided</tomcat.scope>
+			</properties>
+		</profile>
+	</profiles>
 
 
 	<dependencies>
@@ -34,13 +57,11 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 			
-	<!--
 	 	<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
-			<scope>provided</scope>
+			<scope>${tomcat.scope}</scope>
 		</dependency> 
-	-->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
