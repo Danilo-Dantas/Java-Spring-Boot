@@ -41,7 +41,7 @@ public class ClienteController {
     	@ApiResponse(code = 200, message = "Cliente encontrado"),
     	@ApiResponse(code = 404, message = "Cliente não encontrado para o ID informado")
     })
-    public Cliente getClienteById( @PathVariable @ApiParam("ID do cliente") Integer id ){
+    public Cliente getClienteById( @PathVariable Integer id ){
         return clientes
                 .findById(id)
                 .orElseThrow(() ->
